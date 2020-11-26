@@ -124,7 +124,7 @@ for e in [5 , 10  ] :
                 'labels': [json.dumps(np.array(preds).tolist()) for preds in test_preds]})
                 df2.to_csv(f'{model_folder}_test_preds.csv', index=False)
 
-                evaluate_v
+                evaluate_val = evaluate(f'{model_folder}_val_preds.csv' , "data/val.pkl")
 
                 if needReport : 
                     train_report = model.evaluate(train_x , train_y )
@@ -168,7 +168,8 @@ for e in [5 , 10  ] :
                         'support_minf1' : [support_max_f1] ,
                         'macro_avg_f1' : [train_report['f1-score']],  
                         'train_acc' : [train_acc] , 
-                        'val_acc' : [val_acc] 
+                        'val_acc' : [val_acc] , 
+                        'evaluate_val' : [evaluate_val] ,
                     }
                     tempdf = pd.DataFrame(data =d )
                     df = df.append(tempdf , ignore_index= True )
