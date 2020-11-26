@@ -1,0 +1,55 @@
+train_x = train_dict['word_seq'] 
+train_y = train_dict ['tag_seq'] 
+valid_x = val_dict ['word_seq']
+valid_y = val_dict[ 'tag_seq'] 
+test_x = test_dict['word_seq']
+print(np.array(train_x).shape , np.array(train_y).shape, np.array(valid_x).shape, np.array(valid_y).shape)
+
+
+
+
+
+import kashgari
+from kashgari.tasks.labeling import BiGRU_Model, BiGRU_CRF_Model, BiLSTM_CRF_Model,  BiLSTM_Model ,CNN_LSTM_Model 
+import os 
+
+def getModel(name ) : 
+    return {
+        'BiGRU_Model' : BiGRU_Model () , 
+        'BiGRU_CRF_Model' : BiGRU_CRF_Model() , 
+        'BiLSTM_CRF_Model' : BiLSTM_CRF_Model ( ) , 
+        'BiLSTM_Model' : BiLSTM_Model() , 
+        'CNN_LSTM_Model' : CNN_LSTM_Model() , 
+    }[name]
+
+def getModelClass(name): 
+    return {
+        'BiGRU_Model' : BiGRU_Model , 
+        'BiGRU_CRF_Model' : BiGRU_CRF_Model, 
+        'BiLSTM_CRF_Model' : BiLSTM_CRF_Model, 
+        'BiLSTM_Model' : BiLSTM_Model , 
+        'CNN_LSTM_Model' : CNN_LSTM_Model , 
+    }[name]
+
+models = ['BiGRU_Model' , 'BiGRU_CRF_
+
+
+
+for e in [5 , 10  ] : 
+    for b in [64, 128 ] : 
+        for m in models : 
+            for em in embeddings : 
+        if os.path.isdir(f'{m}_{em}_{b}_{e}') : 
+            model = getModelClass.load_model(f'{m}_{em}_{b}_{e}')
+        else : 
+            model = BiLSTM_Model() 
+            model.fit(train_x, train_y , valid_x, valid_y , batch_size=b, epochs=e)
+            model.save(f'saved_ner_model_{b}_{e}')
+        BiLSTM_train_preds = model.predict(train_x)
+        BiLSTM_val_preds = model.predict(valid_x)
+        train_report = model.evaluate(test_x , test_y )
+        val_report = model.evaluate(valid_x , valid_y )
+        print("BiLSTM_MODEL train preds : " , calc_accuracy(np.array(BiLSTM_train_preds) , np.array(train_y) ) ) 
+        print("BiLSTM_MODEL valid pred : " , calc_accuracy(np.array(BiLSTM_val_preds) , np.array(valid_y ) ) ) 
+# test_y = model.predict(test_x) 
+# report = model.evaluate(test_x , real_test_y ) 
