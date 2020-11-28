@@ -19,3 +19,5 @@
 17  BiLSTM_CRF_Model    10        128      0.971605  CORONAVIRUS           265            0               LAW           265  0.892976      0.774526   0.923971
 18      BiLSTM_Model    10        128      0.968853  CORONAVIRUS           265            0               LAW           265  0.893219      0.733476   0.922588
 19    CNN_LSTM_Model    10        128      0.978849  CORONAVIRUS           265            0               LAW           265  0.896430      0.758451   0.927856
+20      BiLSTM_Model    20         64           1.0    ARCHAEON            12      0.289157       WORK_OF_ART            12  0.895696      0.886797   0.971952  
+21      BiLSTM_Model    30         64           1.0    ARCHAEON            12      0.529563      WORK_OF_ART             12  0.892655      0.936581   0.985584

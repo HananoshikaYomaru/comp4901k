@@ -4,7 +4,7 @@ import numpy as np
 import os
 import pickle as pkl
 
-needReport = False   
+needReport = True   
 
 train_dict = pkl.load(open("data/train.pkl", "rb"))
 val_dict = pkl.load(open("data/val.pkl", "rb"))
@@ -93,88 +93,91 @@ from evaluate import evaluate
 df = pd.DataFrame(columns = ['model' , 'epoch' , 'batch_size' , 'max_f1_score' , 'which_maxf1' , 'support_maxf1' , 'min_f1_score' , 'which_minf1' , 'support_minf1' , 'macro_avg_f1', 'train_acc' , 'val_acc'] )
 print(df)
 
-for e in [5 , 10  ] : 
+for e in [5 , 10] : 
     for b in [64, 128 ] : 
         for m in models : 
             # for em in embeddings : 
-                model_folder = f'{m}_{b}_{e}'
-                if os.path.isdir(model_folder) : 
-                    model = getModelClass(m) .load_model(model_folder)
-                else : 
-                    model = getModel(m)
-                    model.fit(train_x, train_y , valid_x, valid_y , batch_size=b, epochs=e)
-                    model.save(model_folder)
+            
+            model_folder = f'{m}_{b}_{e}'
+            # if model_folder != 'BiLSTM_Model_64_20' and model_folder != 'BiLSTM_Model_64_30' :
+            #     continue 
+            if os.path.isdir(model_folder) : 
+                model = getModelClass(m) .load_model(model_folder)
+            else : 
+                model = getModel(m)
+                model.fit(train_x, train_y , valid_x, valid_y , batch_size=b, epochs=e)
+                model.save(model_folder)
 
 
-                train_preds = model.predict(train_x)
-                val_preds = model.predict(valid_x)
-                test_preds = model.predict(test_x)
+            train_preds = model.predict(train_x)
+            val_preds = model.predict(valid_x)
+            test_preds = model.predict(test_x)
 
 
-                
+            
 
 
-                df2 = pd.DataFrame({'id': train_dict["id"],
-                   'labels': [json.dumps(np.array(preds).tolist()) for preds in train_preds]})
-                df2.to_csv(f'{model_folder}_train_preds.csv', index=False)
-                df2 = pd.DataFrame({'id': val_dict["id"],
-                'labels': [json.dumps(np.array(preds).tolist()) for preds in val_preds]})
-                df2.to_csv(f'{model_folder}_val_preds.csv', index=False)
-                df2 = pd.DataFrame({'id': test_dict["id"],
-                'labels': [json.dumps(np.array(preds).tolist()) for preds in test_preds]})
-                df2.to_csv(f'{model_folder}_test_preds.csv', index=False)
+            df2 = pd.DataFrame({'id': train_dict["id"],
+                'labels': [json.dumps(np.array(preds).tolist()) for preds in train_preds]})
+            df2.to_csv(f'{model_folder}_train_preds.csv', index=False)
+            df2 = pd.DataFrame({'id': val_dict["id"],
+            'labels': [json.dumps(np.array(preds).tolist()) for preds in val_preds]})
+            df2.to_csv(f'{model_folder}_val_preds.csv', index=False)
+            df2 = pd.DataFrame({'id': test_dict["id"],
+            'labels': [json.dumps(np.array(preds).tolist()) for preds in test_preds]})
+            df2.to_csv(f'{model_folder}_test_preds.csv', index=False)
 
-                evaluate_val = evaluate(f'{model_folder}_val_preds.csv' , "data/val.pkl")
+            evaluate_val = evaluate(f'{model_folder}_val_preds.csv' , "data/val.pkl")
 
-                if needReport : 
-                    train_report = model.evaluate(train_x , train_y )
-                    val_report = model.evaluate(valid_x , valid_y )
-                    train_acc = calc_accuracy(np.array(train_preds) , np.array(train_y) ) 
-                    val_acc = calc_accuracy(np.array(val_preds) , np.array(valid_y ) )
+            if needReport : 
+                train_report = model.evaluate(train_x , train_y )
+                val_report = model.evaluate(valid_x , valid_y )
+                train_acc = calc_accuracy(np.array(train_preds) , np.array(train_y) ) 
+                val_acc = calc_accuracy(np.array(val_preds) , np.array(valid_y ) )
 
-                    print() 
-                    print(f"{model_folder} train preds : " , train_acc) 
-                    print(f"{model_folder} valid pred : " , val_acc) 
-                    print() 
-                    # df = pd.DataFrame(columns = ['model' , 'epoch' , 'batch_size' , 'max_f1_score' , 'which_maxf1' , 'support_maxf1' , 'min_f1_score' , 'which_minf1' , 'support_minf1' , 'train_acc' , 'val_acc'] )
+                print() 
+                print(f"{model_folder} train preds : " , train_acc) 
+                print(f"{model_folder} valid pred : " , val_acc) 
+                print() 
+                # df = pd.DataFrame(columns = ['model' , 'epoch' , 'batch_size' , 'max_f1_score' , 'which_maxf1' , 'support_maxf1' , 'min_f1_score' , 'which_minf1' , 'support_minf1' , 'train_acc' , 'val_acc'] )
 
-                    max_f1_score = 0  
-                    which_max_f1 = "" 
-                    support_max_f1 = 0  
-                    min_f1_score = 1
-                    which_min_f1 = '' 
-                    support_max_f1 = 0 
-                    for item in train_report['detail'] :
-                        temp = train_report['detail'][item] 
-                        if temp['f1-score'] > max_f1_score and item != '_t_pad_' : 
-                            max_f1_score = temp['f1-score'] 
-                            which_max_f1 = item
-                            support_max_f1 = temp['support']
-                        if temp['f1-score'] < min_f1_score and item != '_t_pad_' : 
-                            min_f1_score = temp['f1-score']
-                            which_min_f1 = item 
-                            support_max_f1 = temp['support'] 
+                max_f1_score = 0  
+                which_max_f1 = "" 
+                support_max_f1 = 0  
+                min_f1_score = 1
+                which_min_f1 = '' 
+                support_max_f1 = 0 
+                for item in train_report['detail'] :
+                    temp = train_report['detail'][item] 
+                    if temp['f1-score'] > max_f1_score and item != '_t_pad_' : 
+                        max_f1_score = temp['f1-score'] 
+                        which_max_f1 = item
+                        support_max_f1 = temp['support']
+                    if temp['f1-score'] < min_f1_score and item != '_t_pad_' : 
+                        min_f1_score = temp['f1-score']
+                        which_min_f1 = item 
+                        support_max_f1 = temp['support'] 
 
 
-                    d = {
-                        'model' : [m] , 
-                        'epoch' : [e]  , 
-                        "batch_size" : [b] , 
-                        'max_f1_score' : [max_f1_score] , 
-                        'which_maxf1' : [which_max_f1] , 
-                        'support_maxf1' : [support_max_f1] , 
-                        'min_f1_score' : [min_f1_score] , 
-                        'which_minf1' : [which_min_f1] , 
-                        'support_minf1' : [support_max_f1] ,
-                        'macro_avg_f1' : [train_report['f1-score']],  
-                        'train_acc' : [train_acc] , 
-                        'val_acc' : [val_acc] , 
-                        'evaluate_val' : [evaluate_val] ,
-                    }
-                    tempdf = pd.DataFrame(data =d )
-                    df = df.append(tempdf , ignore_index= True )
-                    print(df )
-                    print( '============================================================================================================')
+                d = {
+                    'model' : [m] , 
+                    'epoch' : [e]  , 
+                    "batch_size" : [b] , 
+                    'max_f1_score' : [max_f1_score] , 
+                    'which_maxf1' : [which_max_f1] , 
+                    'support_maxf1' : [support_max_f1] , 
+                    'min_f1_score' : [min_f1_score] , 
+                    'which_minf1' : [which_min_f1] , 
+                    'support_minf1' : [support_max_f1] ,
+                    'macro_avg_f1' : [train_report['f1-score']],  
+                    'train_acc' : [train_acc] , 
+                    'val_acc' : [val_acc] , 
+                    'evaluate_val' : [evaluate_val] ,
+                }
+                tempdf = pd.DataFrame(data =d )
+                df = df.append(tempdf , ignore_index= True )
+                print(df )
+                print( '============================================================================================================')
 
 # test_y = model.predict(test_x) 
 # report = model.evaluate(test_x , real_test_y ) 
