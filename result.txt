@@ -1,21 +1,21 @@
-               model epoch batch_size  max_f1_score  which_maxf1 support_maxf1 min_f1_score       which_minf1 support_minf1 macro_avg_f1train_acc   val_acc  macro_avg_f1  train_acc
-0        BiGRU_Model     5         64      0.973174  CORONAVIRUS           265            0               LAW           265                   NaN  0.894718      0.727843   0.916545
-1    BiGRU_CRF_Model     5         64      0.977005  CORONAVIRUS           265            0               LAW           265                   NaN  0.894816      0.765897   0.917600
-2   BiLSTM_CRF_Model     5         64      0.965843  CORONAVIRUS           265            0               LAW           265                   NaN  0.889618      0.733434   0.908726
-3       BiLSTM_Model     5         64      0.966617  CORONAVIRUS           265            0               LAW           265                   NaN  0.890899      0.700493   0.910809
-4     CNN_LSTM_Model     5         64      0.976802  CORONAVIRUS           265            0               LAW           265                   NaN  0.894455      0.725569   0.915471
-5        BiGRU_Model     5        128      0.967595  CORONAVIRUS           265            0               LAW           265                   NaN  0.884625      0.663430   0.898272
-6    BiGRU_CRF_Model     5        128      0.966293  CORONAVIRUS           265            0               LAW           265                   NaN  0.886424      0.708170   0.901825
-7   BiLSTM_CRF_Model     5        128      0.951600  CORONAVIRUS           265            0               LAW           265                   NaN  0.880555      0.669641   0.892924
-8       BiLSTM_Model     5        128      0.941807  CORONAVIRUS           265            0               LAW           265                   NaN  0.878327      0.629235   0.891547
-9     CNN_LSTM_Model     5        128      0.962304  CORONAVIRUS           265            0               LAW           265                   NaN  0.885313      0.665795   0.899721
-10       BiGRU_Model    10         64      0.985427  CORONAVIRUS           229    0.0901639       WORK_OF_ART           229                   NaN  0.899714      0.805740   0.944705
-11   BiGRU_CRF_Model    10         64      1.000000     ARCHAEON            12     0.174905       WORK_OF_ART            12                   NaN  0.901739      0.842499   0.945840
-12  BiLSTM_CRF_Model    10         64      0.983197  CORONAVIRUS           229    0.0258621       WORK_OF_ART           229                   NaN  0.899178      0.824727   0.940281
-13      BiLSTM_Model    10         64      0.979293  CORONAVIRUS           229     0.017316       WORK_OF_ART           229                   NaN  0.897978      0.782475   0.938486
-14    CNN_LSTM_Model    10         64      1.000000     ARCHAEON            12    0.0421941       WORK_OF_ART            12                   NaN  0.901507      0.804818   0.943904
-15       BiGRU_Model    10        128      0.978437  CORONAVIRUS           229            0       WORK_OF_ART           229                   NaN  0.897316      0.760568   0.928672
-16   BiGRU_CRF_Model    10        128      0.979243  CORONAVIRUS            30            0  PHYSICAL_SCIENCE            30                   NaN  0.895756      0.790135   0.927271
-17  BiLSTM_CRF_Model    10        128      0.971605  CORONAVIRUS           265            0               LAW           265                   NaN  0.892976      0.774526   0.923971
-18      BiLSTM_Model    10        128      0.968853  CORONAVIRUS           265            0               LAW           265                   NaN  0.893219      0.733476   0.922588
-19    CNN_LSTM_Model    10        128      0.978849  CORONAVIRUS           265            0               LAW           265                   NaN  0.896430      0.758451   0.927856
+               model epoch batch_size  max_f1_score  which_maxf1 support_maxf1 min_f1_score       which_minf1 support_minf1   val_acc  macro_avg_f1  train_acc
+0        BiGRU_Model     5         64      0.973174  CORONAVIRUS           265            0               LAW           265  0.894718      0.727843   0.916545
+1    BiGRU_CRF_Model     5         64      0.977005  CORONAVIRUS           265            0               LAW           265  0.894816      0.765897   0.917600
+2   BiLSTM_CRF_Model     5         64      0.965843  CORONAVIRUS           265            0               LAW           265  0.889618      0.733434   0.908726
+3       BiLSTM_Model     5         64      0.966617  CORONAVIRUS           265            0               LAW           265  0.890899      0.700493   0.910809
+4     CNN_LSTM_Model     5         64      0.976802  CORONAVIRUS           265            0               LAW           265  0.894455      0.725569   0.915471
+5        BiGRU_Model     5        128      0.967595  CORONAVIRUS           265            0               LAW           265  0.884625      0.663430   0.898272
+6    BiGRU_CRF_Model     5        128      0.966293  CORONAVIRUS           265            0               LAW           265  0.886424      0.708170   0.901825
+7   BiLSTM_CRF_Model     5        128      0.951600  CORONAVIRUS           265            0               LAW           265  0.880555      0.669641   0.892924
+8       BiLSTM_Model     5        128      0.941807  CORONAVIRUS           265            0               LAW           265  0.878327      0.629235   0.891547
+9     CNN_LSTM_Model     5        128      0.962304  CORONAVIRUS           265            0               LAW           265  0.885313      0.665795   0.899721
+10       BiGRU_Model    10         64      0.985427  CORONAVIRUS           229    0.0901639       WORK_OF_ART           229  0.899714      0.805740   0.944705
+11   BiGRU_CRF_Model    10         64      1.000000     ARCHAEON            12     0.174905       WORK_OF_ART            12  0.901739      0.842499   0.945840
+12  BiLSTM_CRF_Model    10         64      0.983197  CORONAVIRUS           229    0.0258621       WORK_OF_ART           229  0.899178      0.824727   0.940281
+13      BiLSTM_Model    10         64      0.979293  CORONAVIRUS           229     0.017316       WORK_OF_ART           229  0.897978      0.782475   0.938486
+14    CNN_LSTM_Model    10         64      1.000000     ARCHAEON            12    0.0421941       WORK_OF_ART            12  0.901507      0.804818   0.943904
+15       BiGRU_Model    10        128      0.978437  CORONAVIRUS           229            0       WORK_OF_ART           229  0.897316      0.760568   0.928672
+16   BiGRU_CRF_Model    10        128      0.979243  CORONAVIRUS            30            0  PHYSICAL_SCIENCE            30  0.895756      0.790135   0.927271
+17  BiLSTM_CRF_Model    10        128      0.971605  CORONAVIRUS           265            0               LAW           265  0.892976      0.774526   0.923971
+18      BiLSTM_Model    10        128      0.968853  CORONAVIRUS           265            0               LAW           265  0.893219      0.733476   0.922588
+19    CNN_LSTM_Model    10        128      0.978849  CORONAVIRUS           265            0               LAW           265  0.896430      0.758451   0.927856
